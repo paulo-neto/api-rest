@@ -18,7 +18,9 @@ public final class MesagesProperties{
 	private Properties properties;
 	private static final MesagesProperties instancia = new MesagesProperties();
 	
-	private MesagesProperties(){}
+	private MesagesProperties(){
+		getProperties();
+	}
 	
 	public static MesagesProperties getInstancia() {
 		return instancia;

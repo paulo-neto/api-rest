@@ -15,8 +15,10 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
+import com.apirest.mesages.KeyMesages;
 import com.apirest.models.Product;
 import com.apirest.models.Usuario;
+import com.apirest.repository.RepositoryException;
 
 @Path("/usuarios")
 public class UsuarioResource {
@@ -27,8 +29,9 @@ public class UsuarioResource {
 	@Path("/")
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public List<Usuario> listaUsuarios() {
-		return new ArrayList<Usuario>();
+	public List<Usuario> listaUsuarios() throws RepositoryException {
+		
+		throw new RepositoryException(KeyMesages.ERRO_GENERICO,"bla");
 	}
 
 	@Path("/")
