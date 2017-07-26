@@ -19,6 +19,7 @@
 		<version.commons.beanutils>1.8.3</version.commons.beanutils>
 		<version.apache.commons.lang>3.5</version.apache.commons.lang>
 		<version.log4j>1.2.17</version.log4j>
+		<version.jwt>3.2.0</version.jwt>
 
 	</properties>
 	<profiles>
@@ -66,6 +67,12 @@
 			<artifactId>hibernate-validator-annotation-processor</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -87,20 +94,17 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${version.apache.commons.lang}</version>
 		</dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${version.log4j}</version>
-        </dependency>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
-			<scope>provided</scope>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${version.jwt}</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${version.log4j}</version>
+		</dependency>
+	
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-jaxrs</artifactId>

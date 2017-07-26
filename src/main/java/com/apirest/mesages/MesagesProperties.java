@@ -18,9 +18,7 @@ public final class MesagesProperties{
 	private Properties properties;
 	private static final MesagesProperties instancia = new MesagesProperties();
 	
-	private MesagesProperties(){
-		getProperties();
-	}
+	private MesagesProperties(){}
 	
 	public static MesagesProperties getInstancia() {
 		return instancia;
@@ -28,13 +26,14 @@ public final class MesagesProperties{
 
 	protected Properties getProperties() {
 		if (properties == null) {
-			properties = ArquivoUtil.getProperties(mesagesProperties);
+			ArquivoUtil arq = new ArquivoUtil();
+			properties = arq.getProperties(mesagesProperties);
 		}
 		return properties;
 	}
 	
 	public String getMesage(String key, String... argumentos){
-		String msg =  properties.getProperty(key);
+		String msg =  getProperties().getProperty(key);
 		return MessageFormat.format(msg, argumentos);
 	}
 }

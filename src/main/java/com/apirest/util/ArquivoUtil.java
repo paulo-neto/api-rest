@@ -1,31 +1,33 @@
 package com.apirest.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public final class ArquivoUtil {
+import javax.inject.Inject;
 
-	//FIXME ADICIONAR CLASSE DE LOG
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
+
+public class ArquivoUtil {
+
+	@Inject
+	private Logger logger;
 	
-	public static final Properties getProperties(String propertiesName){
+	public Properties getProperties(String propertiesName){
 		Properties prop = new Properties();
 		InputStream input = null;
 		try {
-			input = new FileInputStream(propertiesName);
-			// load a properties file
+			input = getClass().getResourceAsStream("/".concat(propertiesName));
 			prop.load(input);
 		} catch (IOException ex) {
-			ex.printStackTrace();
-			//FIXME ADICIONAR CLASSE DE LOG
+			logger.error(ExceptionUtils.getRootCauseMessage(ex));
 		} finally {
 			if (input != null) {
 				try {
 					input.close();
 				} catch (IOException e) {
-					e.printStackTrace();
-					//FIXME ADICIONAR CLASSE DE LOG
+					logger.error(ExceptionUtils.getRootCauseMessage(e));
 				}
 			}
 		}
