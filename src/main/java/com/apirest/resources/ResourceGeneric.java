@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.apirest.event.RecursoCriadoEvent;
 import com.apirest.repository.RepositoryException;
+import com.apirest.service.ServiceException;
 
 public abstract class ResourceGeneric<T> {
 	@Inject
@@ -27,9 +28,9 @@ public abstract class ResourceGeneric<T> {
 
 	public abstract Response criar(T t) throws RepositoryException ;
 
-	public abstract Response atualizar(Long codigo, T t) throws RepositoryException;
+	public abstract Response atualizar(Long codigo, T t) throws RepositoryException,ServiceException;
 
-	public abstract void remover(Long codigo) throws RepositoryException;
+	public abstract Response remover(Long codigo) throws RepositoryException;
 
 	public abstract Response listar() throws RepositoryException;
 

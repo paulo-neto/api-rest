@@ -100,10 +100,7 @@ public abstract class GenericRepositoryImpl<T> implements IGenericRepository<T>,
 	@Override
 	public void delete(T entity) throws RepositoryException {
 		try {
-			TO entidade = obter(entity);
-			if (entidade != null) {
-				entityManager.remove(entidade);
-			}
+			entityManager.remove(entity);
 		} catch (Exception e) {
 			throw new RepositoryException(KeyMesages.ERRO_DELETAR, ExceptionUtils.getRootCauseMessage(e));
 		}

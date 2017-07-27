@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import com.apirest.event.RecursoCriadoEvent;
 import com.apirest.models.Usuario;
 import com.apirest.repository.RepositoryException;
+import com.apirest.service.ServiceException;
 import com.apirest.service.UsuarioService;
 import com.apirest.util.AssertUtils;
 
@@ -42,16 +43,18 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@PUT
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
-	public Response atualizar(@PathParam("codigo") Long codigo, Usuario usuario)throws RepositoryException {
-		
-		return null;
+	public Response atualizar(@PathParam("codigo") Long codigo, Usuario usuario)
+			throws RepositoryException, ServiceException {
+		Usuario usuAtualizado = usuarioService.atualizar(codigo,usuario);
+		return Response.ok().entity(usuAtualizado).build();
 	}
 	
 	@Path("/{codigo}")
 	@DELETE
 	@Override
-	public void remover(@PathParam("codigo") Long codigo)throws RepositoryException{
-		
+	public Response remover(@PathParam("codigo") Long codigo)throws RepositoryException{
+		usuarioService.remover(codigo);
+		return Response.status(Status.OK).build();
 	}
 
 	@Path("/")
@@ -73,10 +76,4 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 		return AssertUtils.isEmpty(usuarioEncontrado) ? Response.status(Status.NO_CONTENT).build()
 				: Response.status(Status.OK).entity(usuarioEncontrado).build();
 	}
-	
-
-	
-
-	
-	
 }
