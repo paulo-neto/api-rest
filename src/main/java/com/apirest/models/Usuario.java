@@ -3,15 +3,19 @@
  */
 package com.apirest.models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * @author paulo
@@ -34,11 +38,14 @@ public class Usuario implements TO {
 	private String senha;
 	private String email;
 	
-	@ManyToMany
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "perfil_usuario")
 	private Set<Perfil> perfis;
 	
-	public Usuario() {}
+	public Usuario() {
+		this.perfis = new HashSet<>();
+	}
 
 	public Usuario(String login, String senha, String email) {
 		this.login = login;

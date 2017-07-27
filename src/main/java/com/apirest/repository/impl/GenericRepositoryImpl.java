@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.apirest.repository;
+package com.apirest.repository.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -10,17 +10,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.service.jdbc.connections.spi.ConnectionProvider;
 
 import com.apirest.mesages.KeyMesages;
 import com.apirest.models.TO;
+import com.apirest.repository.IGenericRepository;
+import com.apirest.repository.RepositoryException;
 
 /**
  * Classe que implementa os métodos de mínimos de manipulação com o Banco de
@@ -39,6 +43,8 @@ public abstract class GenericRepositoryImpl<T> implements IGenericRepository<T>,
 	@PersistenceContext
 	protected EntityManager entityManager;
 
+	@Inject
+	protected Logger logger;
 	
 	public Connection getConnection() throws RepositoryException {
 		try {
