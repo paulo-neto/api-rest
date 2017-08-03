@@ -3,6 +3,7 @@ package com.apirest.resources;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -33,7 +34,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@POST
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
-	public Response criar(Usuario usuario) throws RepositoryException{
+	public Response criar(@Valid Usuario usuario) throws RepositoryException{
 		Usuario usuarioSalvo = usuarioService.salvar(usuario);
 		eventRecursoCriado.fire(new RecursoCriadoEvent(response,uriInfo, usuario.getId()));
 		return Response.status(Status.CREATED).entity(usuarioSalvo).build();

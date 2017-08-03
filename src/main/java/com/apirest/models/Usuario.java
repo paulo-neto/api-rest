@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -34,8 +35,13 @@ public class Usuario implements TO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	private String login;
+	
+	@NotNull
 	private String senha;
+	
+	@NotNull
 	private String email;
 	
 	@JsonIgnore

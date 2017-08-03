@@ -18,8 +18,7 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.service.jdbc.connections.spi.ConnectionProvider;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 
 import com.apirest.mesages.KeyMesages;
 import com.apirest.models.TO;
@@ -49,9 +48,8 @@ public abstract class GenericRepositoryImpl<T> implements IGenericRepository<T>,
 	public Connection getConnection() throws RepositoryException {
 		try {
 			Session session = entityManager.unwrap(Session.class);
-			SessionFactoryImplementor sesImpl = (SessionFactoryImplementor) session.getSessionFactory();
-			ConnectionProvider connectionProvider = sesImpl.getConnectionProvider();
-			return connectionProvider.getConnection();
+			return session.getSessionFactory().getSessionFactoryOptions().getServiceRegistry()
+					.getService(ConnectionProvider.class).getConnection();			
 		} catch (SQLException e) {
 			throw new RepositoryException(KeyMesages.ERRO_GENERICO, ExceptionUtils.getRootCauseMessage(e));
 		}
