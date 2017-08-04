@@ -5,8 +5,6 @@ package com.apirest.repository.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +15,6 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 
 import com.apirest.mesages.KeyMesages;
 import com.apirest.models.TO;
@@ -45,15 +41,15 @@ public abstract class GenericRepositoryImpl<T> implements IGenericRepository<T>,
 	@Inject
 	protected Logger logger;
 	
-	public Connection getConnection() throws RepositoryException {
-		try {
-			Session session = entityManager.unwrap(Session.class);
-			return session.getSessionFactory().getSessionFactoryOptions().getServiceRegistry()
-					.getService(ConnectionProvider.class).getConnection();			
-		} catch (SQLException e) {
-			throw new RepositoryException(KeyMesages.ERRO_GENERICO, ExceptionUtils.getRootCauseMessage(e));
-		}
-	}
+//	public Connection getConnection() throws RepositoryException {
+//		try {
+//			Session session = entityManager.unwrap(Session.class);
+//			return session.getSessionFactory().getSessionFactoryOptions().getServiceRegistry()
+//					.getService(ConnectionProvider.class).getConnection();			
+//		} catch (SQLException e) {
+//			throw new RepositoryException(KeyMesages.ERRO_GENERICO, ExceptionUtils.getRootCauseMessage(e));
+//		}
+//	}
 	/*
 	 * (non-Javadoc)
 	 * 

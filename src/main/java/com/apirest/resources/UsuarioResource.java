@@ -23,6 +23,7 @@ import com.apirest.service.ServiceException;
 import com.apirest.service.UsuarioService;
 import com.apirest.util.AssertUtils;
 
+
 @Path("/usuarios")
 @Consumes(value = { MediaType.APPLICATION_JSON })
 public class UsuarioResource extends ResourceGeneric<Usuario>{
