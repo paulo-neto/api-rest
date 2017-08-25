@@ -3,7 +3,7 @@ package com.apirest.resources.config;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("/api/")
+@ApplicationPath("api")
 public class ApplicationConf extends Application{
 
 }
