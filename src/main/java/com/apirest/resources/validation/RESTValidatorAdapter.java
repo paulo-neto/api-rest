@@ -50,7 +50,6 @@ public class RESTValidatorAdapter implements ValidatorAdapter {
                 .getAnnotations(), ValidateRequest.class);
 
         if (resourceValidateRequest != null) {
-        	System.out.println(resourceValidateRequest.groups());
             Set<ConstraintViolation<?>> constraintViolations = new HashSet<ConstraintViolation<?>>(validator.validate(
                     resource, resourceValidateRequest.groups()));
 

@@ -35,13 +35,13 @@ public class Usuario implements TO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
+	@NotNull(message = "login é obrigatório")
 	private String login;
 	
-	@NotNull
+	@NotNull(message = "senha é obrigatório")
 	private String senha;
 	
-	@NotNull
+	@NotNull(message = "email é obrigatório")
 	private String email;
 	
 	@JsonIgnore
