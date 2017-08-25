@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jboss.resteasy.spi.validation.ValidateRequest;
+
 import com.apirest.event.RecursoCriadoEvent;
 import com.apirest.models.Usuario;
 import com.apirest.repository.RepositoryException;
@@ -26,6 +28,7 @@ import com.apirest.util.AssertUtils;
 
 @Path("/usuarios")
 @Consumes(value = { MediaType.APPLICATION_JSON })
+@ValidateRequest
 public class UsuarioResource extends ResourceGeneric<Usuario>{
 	
 	@Inject
