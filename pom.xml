@@ -90,11 +90,6 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<scope>provided</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>commons-logging</groupId> -->
-<!-- 			<artifactId>commons-logging</artifactId> -->
-<!-- 			<version>${version.commons.loggin}</version> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>

@@ -26,7 +26,7 @@ import com.apirest.service.UsuarioService;
 import com.apirest.util.AssertUtils;
 
 
-@Path("/usuarios")
+@Path("usuarios")
 @Consumes(value = { MediaType.APPLICATION_JSON })
 @ValidateRequest
 public class UsuarioResource extends ResourceGeneric<Usuario>{
@@ -34,7 +34,6 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@Inject
 	private UsuarioService usuarioService;
 
-	@Path("/")
 	@POST
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
@@ -44,7 +43,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 		return Response.status(Status.CREATED).entity(usuarioSalvo).build();
 	}
 	
-	@Path("/{codigo}")
+	@Path("{codigo}")
 	@PUT
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
@@ -54,7 +53,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 		return Response.ok().entity(usuAtualizado).build();
 	}
 	
-	@Path("/{codigo}")
+	@Path("{codigo}")
 	@DELETE
 	@Override
 	public Response remover(@PathParam("codigo") Long codigo)throws RepositoryException{
@@ -62,7 +61,6 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 		return Response.status(Status.OK).build();
 	}
 
-	@Path("/")
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
@@ -72,7 +70,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 				: Response.status(Status.OK).entity(retorno).build();
 	}
 	
-	@Path("/{codigo}")
+	@Path("{codigo}")
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
