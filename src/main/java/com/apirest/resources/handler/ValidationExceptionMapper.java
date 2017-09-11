@@ -23,8 +23,9 @@ public class ValidationExceptionMapper implements ExceptionMapper<MethodConstrai
     	ErroMessage erro = null;
     	List<ErroMessage> erros = new ArrayList<>();
         for (MethodConstraintViolation<?> methodConstraintViolation : ex.getConstraintViolations()) {
-			erro = new ErroMessage(getPropertyMesage(methodConstraintViolation),
-					"Bean Validation: ".concat(getPropertyName(methodConstraintViolation)));
+        	String msg = getPropertyMesage(methodConstraintViolation);
+        	String atributo = getPropertyName(methodConstraintViolation);
+			erro = new ErroMessage(msg, "Bean Validation: atributo: ".concat(atributo).concat(": ").concat(msg));
 			erros.add(erro);
         }
         return configurar(MediaType.APPLICATION_JSON_TYPE,erros, Status.PRECONDITION_FAILED);

@@ -2,11 +2,6 @@ package com.pauloneto.resources;
 
 import java.net.MalformedURLException;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import com.apirest.models.Product;
-
 public class ProductCreationClientTest
 {
 
