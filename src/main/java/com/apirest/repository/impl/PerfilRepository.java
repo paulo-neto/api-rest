@@ -7,27 +7,24 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import com.apirest.models.Usuario;
+import com.apirest.models.Perfil;
 
-public class UsuarioRepository extends GenericRepositoryImpl<Usuario> {
+public class PerfilRepository extends GenericRepositoryImpl<Perfil> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public List<Usuario> findAll() {
-		List<Usuario> retorno = new ArrayList<>();
-		StringBuilder consulta = new StringBuilder("select u from Usuario u");
+	public List<Perfil> findAll() {
+		List<Perfil> retorno = new ArrayList<>();
+		StringBuilder consulta = new StringBuilder("select p from Perfil p");
 		try{
-			TypedQuery<Usuario> query = entityManager.createQuery(consulta.toString(), Usuario.class);
+			TypedQuery<Perfil> query = entityManager.createQuery(consulta.toString(), Perfil.class);
 			retorno = query.getResultList();
 		}catch (Exception e) {
 			logger.error(ExceptionUtils.getRootCauseMessage(e),e);
 		}
 		return retorno;
 	}
-	
-	
-
 }

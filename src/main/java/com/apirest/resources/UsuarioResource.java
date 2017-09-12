@@ -20,7 +20,6 @@ import org.jboss.resteasy.spi.validation.ValidateRequest;
 
 import com.apirest.event.RecursoCriadoEvent;
 import com.apirest.models.Usuario;
-import com.apirest.repository.RepositoryException;
 import com.apirest.service.ServiceException;
 import com.apirest.service.UsuarioService;
 import com.apirest.util.AssertUtils;
@@ -37,7 +36,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@POST
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
-	public Response criar(@Valid Usuario usuario) throws RepositoryException{
+	public Response criar(@Valid Usuario usuario) throws ServiceException{
 		Usuario usuarioSalvo = usuarioService.salvar(usuario);
 		eventRecursoCriado.fire(new RecursoCriadoEvent(response,uriInfo, usuario.getId()));
 		return Response.status(Status.CREATED).entity(usuarioSalvo).build();
@@ -48,7 +47,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
 	public Response atualizar(@PathParam("codigo") Long codigo, Usuario usuario)
-			throws RepositoryException, ServiceException {
+			throws ServiceException {
 		Usuario usuAtualizado = usuarioService.atualizar(codigo,usuario);
 		return Response.ok().entity(usuAtualizado).build();
 	}
@@ -56,7 +55,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@Path("{codigo}")
 	@DELETE
 	@Override
-	public Response remover(@PathParam("codigo") Long codigo)throws RepositoryException{
+	public Response remover(@PathParam("codigo") Long codigo)throws ServiceException{
 		usuarioService.remover(codigo);
 		return Response.status(Status.OK).build();
 	}
@@ -64,7 +63,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
-	public Response listar() throws RepositoryException {
+	public Response listar() throws ServiceException {
 		List<Usuario> retorno = usuarioService.listar();
 		return AssertUtils.isEmpty(retorno) ? Response.status(Status.NO_CONTENT).build()
 				: Response.status(Status.OK).entity(retorno).build();
@@ -74,7 +73,7 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	@Override
-	public Response buscarPeloCodigo(@PathParam("codigo") Long codigo)throws RepositoryException{
+	public Response buscarPorCodigo(@PathParam("codigo") Long codigo)throws ServiceException{
 		Usuario usuarioEncontrado = usuarioService.obterPorId(codigo);
 		return AssertUtils.isEmpty(usuarioEncontrado) ? Response.status(Status.NO_CONTENT).build()
 				: Response.status(Status.OK).entity(usuarioEncontrado).build();

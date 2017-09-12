@@ -12,6 +12,6 @@ public class RecursoCriadoListener {
 		HttpServletResponse response = event.getResponse();
 		Long codigo = event.getCodigo();
 		UriInfo uriInfo = event.getUriInfo();
-		response.setHeader("Location", uriInfo.getAbsolutePath().toString().concat("/").concat(codigo.toString()));
+		response.setHeader("Location", uriInfo.getAbsolutePath().toString().concat(codigo.toString()));
 	}
 }

@@ -10,7 +10,6 @@ import javax.ws.rs.core.UriInfo;
 import org.apache.log4j.Logger;
 
 import com.apirest.event.RecursoCriadoEvent;
-import com.apirest.repository.RepositoryException;
 import com.apirest.service.ServiceException;
 
 public abstract class ResourceGeneric<T> {
@@ -26,15 +25,15 @@ public abstract class ResourceGeneric<T> {
 	@Context
 	protected UriInfo uriInfo;
 
-	public abstract Response criar(T t) throws RepositoryException ;
+	public abstract Response criar(T t) throws ServiceException ;
 
-	public abstract Response atualizar(Long codigo, T t) throws RepositoryException,ServiceException;
+	public abstract Response atualizar(Long codigo, T t) throws ServiceException;
 
-	public abstract Response remover(Long codigo) throws RepositoryException;
+	public abstract Response remover(Long codigo) throws ServiceException;
 
-	public abstract Response listar() throws RepositoryException;
+	public abstract Response listar() throws ServiceException;
 
-	public abstract Response buscarPeloCodigo(Long codigo) throws RepositoryException ;
+	public abstract Response buscarPorCodigo(Long codigo) throws ServiceException ;
 	
 	
 
