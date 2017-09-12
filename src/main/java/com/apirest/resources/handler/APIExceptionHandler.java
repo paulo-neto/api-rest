@@ -13,6 +13,8 @@ import javax.ws.rs.ext.Provider;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+import com.apirest.service.ServiceException;
+
 @Provider
 public class APIExceptionHandler implements ExceptionMapper<Exception>, ConfiguraResponseExceptionHandler {
 
@@ -21,9 +23,10 @@ public class APIExceptionHandler implements ExceptionMapper<Exception>, Configur
 	
 	@Override
 	public Response toResponse(Exception ex) {
-		String causa = ExceptionUtils.getRootCauseMessage(ex);
+		String causa = ex instanceof ServiceException ? ((ServiceException) ex).getMessage() : "Erro no servidor";
+		ErroMessage erro = null;
 		logger.error(causa, ex);
-		ErroMessage erro = new ErroMessage("Erro no servidor", causa);
+		erro = new ErroMessage(causa, ExceptionUtils.getStackTrace(ex));
 		List<ErroMessage> erros = Arrays.asList(erro);
 		return configurar(MediaType.APPLICATION_JSON_TYPE,erros, Status.INTERNAL_SERVER_ERROR);
 	}

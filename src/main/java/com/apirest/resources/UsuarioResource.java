@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response.Status;
 import org.jboss.resteasy.spi.validation.ValidateRequest;
 
 import com.apirest.event.RecursoCriadoEvent;
+import com.apirest.models.Perfil;
 import com.apirest.models.Usuario;
 import com.apirest.service.ServiceException;
 import com.apirest.service.UsuarioService;
@@ -78,4 +79,23 @@ public class UsuarioResource extends ResourceGeneric<Usuario>{
 		return AssertUtils.isEmpty(usuarioEncontrado) ? Response.status(Status.NO_CONTENT).build()
 				: Response.status(Status.OK).entity(usuarioEncontrado).build();
 	}
+	
+	@Path("/adicona-perfil/{codigoPerfil}/usuario/{codigoUsuario}")
+	@PUT
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public Response adicionaPerfilaUsuario(@PathParam("codigoPerfil") Long codigoPerfil,
+			@PathParam("codigoUsuario") Long codigoUsuario) throws ServiceException {
+		usuarioService.adicionaPerfilaUsuario(codigoPerfil,codigoUsuario);
+		return Response.status(Status.OK).build();
+	}
+	
+	@Path("/consultar-perfis-usuario/{codigoUsuario}")
+	@GET
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public Response buscarPerfisUsuario(@PathParam("codigoUsuario") Long codigoUsuario)throws ServiceException{
+		List<Perfil> perfisDoUsuario = usuarioService.consultarPerfisDoUsuario(codigoUsuario);
+		return AssertUtils.isEmpty(perfisDoUsuario) ? Response.status(Status.NO_CONTENT).build()
+				: Response.status(Status.OK).entity(perfisDoUsuario).build();
+	}
+	
 }

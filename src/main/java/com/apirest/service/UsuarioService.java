@@ -13,8 +13,10 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import com.apirest.mesages.KeyMesages;
+import com.apirest.models.Perfil;
 import com.apirest.models.Usuario;
 import com.apirest.repository.RepositoryException;
+import com.apirest.repository.impl.PerfilRepository;
 import com.apirest.repository.impl.UsuarioRepository;
 import com.apirest.util.AssertUtils;
 
@@ -27,6 +29,9 @@ public class UsuarioService {
 	
 	@Inject
 	private UsuarioRepository usuarioRepository;
+	
+	@Inject
+	private PerfilRepository perfilRepository;
 	
 	public List<Usuario> listar(){
 		return usuarioRepository.findAll();
@@ -80,7 +85,31 @@ public class UsuarioService {
 			logger.error(ExceptionUtils.getRootCauseMessage(e),e);
 			throw new ServiceException(KeyMesages.ERRO_GENERICO,ExceptionUtils.getRootCauseMessage(e));
 		}
+	}
 
-		
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void adicionaPerfilaUsuario(Long codigoPerfil, Long codigoUsuario) throws ServiceException {
+		Perfil perfilEncontrado = perfilRepository.findId(Perfil.class, codigoPerfil);
+		if(AssertUtils.isEmpty(perfilEncontrado)){
+			String arg[] = {codigoPerfil.toString()};
+			throw new ServiceException(KeyMesages.PERFIL_NAO_ENCONTRADO,arg);
+		}
+		Usuario usuarioEncontrado = usuarioRepository.findId(Usuario.class, codigoUsuario);
+		if(AssertUtils.isEmpty(usuarioEncontrado)){
+			String arg[] = {codigoUsuario.toString()};
+			throw new ServiceException(KeyMesages.USUARIO_NAO_ENCONTRADO,arg);
+		}
+		usuarioEncontrado.getPerfis().add(perfilEncontrado);
+		try {
+			usuarioRepository.update(usuarioEncontrado);
+		} catch (RepositoryException e) {
+			throw new ServiceException(KeyMesages.ERRO_GENERICO,ExceptionUtils.getRootCauseMessage(e));
+		}
+	}
+
+
+	public List<Perfil> consultarPerfisDoUsuario(Long codigoUsuario){
+		return perfilRepository.consultarPerfisDoUsuario(codigoUsuario);
 	}
 }

@@ -15,5 +15,6 @@ public interface KeyMesages {
 	public static final String ERRO_ATUAIZAR = "erro.atualizar";
 	public static final String ERRO_GENERICO = "erro.generico";
 	public static final String USUARIO_NAO_ENCONTRADO = "usuario.nao.encont";
+	public static final String PERFIL_NAO_ENCONTRADO = "perfil.nao.encont";
 
 }
