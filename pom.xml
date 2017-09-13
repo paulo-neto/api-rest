@@ -12,13 +12,13 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		
+
 		<!-- VERSOES DOS PLUGINS MAVEN -->
 		<version.maven-war-plugin>2.6</version.maven-war-plugin>
 		<version.maven-jar-plugin>2.6</version.maven-jar-plugin>
 		<version.maven-resources-plugin>2.6</version.maven-resources-plugin>
 		<version.maven-compiler-plugin>3.5.1</version.maven-compiler-plugin>
-		
+
 		<version.jboss.bom>1.0.6.Final</version.jboss.bom>
 		<version.swagger.jaxrs>1.5.8</version.swagger.jaxrs>
 		<version.commons.loggin>1.2</version.commons.loggin>
@@ -29,6 +29,8 @@
 		<version.jwt>3.2.0</version.jwt>
 		<version.mapper.asl>1.9.9</version.mapper.asl>
 		<version.org.jboss.resteasy>2.3.8.Final-redhat-3</version.org.jboss.resteasy>
+		<spring.version>3.2.11.RELEASE</spring.version>
+		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 	</properties>
 	<profiles>
 		<!-- PROFILE PARA GERAR EAR DE DESENVOLVIMENTO LOCAL -->
@@ -42,7 +44,6 @@
 	</profiles>
 	<dependencyManagement>
 		<dependencies>
-			<!-- https://mvnrepository.com/artifact/org.jboss.bom/jboss-eap-javaee7-with-tools -->
 			<dependency>
 				<groupId>org.jboss.bom.eap</groupId>
 				<artifactId>jboss-eap-javaee6-with-tools</artifactId>
@@ -92,6 +93,79 @@
 			<artifactId>jaxrs-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Resteasy Spring Integration -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-spring</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jaxb-impl</artifactId>
+					<groupId>com.sun.xml.bind</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>sjsxp</artifactId>
+					<groupId>com.sun.xml.stream</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jsr250-api</artifactId>
+					<groupId>javax.annotation</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>activation</artifactId>
+					<groupId>javax.activation</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- Spring Framework-3.2.x -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Spring Security 3.2.5.RELEASE Framework -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
 		<dependency>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<groupId>org.codehaus.jackson</groupId>

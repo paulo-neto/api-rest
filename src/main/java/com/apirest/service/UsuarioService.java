@@ -19,6 +19,7 @@ import com.apirest.repository.RepositoryException;
 import com.apirest.repository.impl.PerfilRepository;
 import com.apirest.repository.impl.UsuarioRepository;
 import com.apirest.util.AssertUtils;
+import com.apirest.util.HashPasswordUtil;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -40,6 +41,8 @@ public class UsuarioService {
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Usuario salvar(Usuario usuario) throws ServiceException{
+		String hashedPwd = HashPasswordUtil.generateHash(usuario.getSenha());
+		usuario.setSenha(hashedPwd);
 		try{
 			return usuarioRepository.save(usuario);
 		}catch (RepositoryException e) {

@@ -7,9 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
 @Table(name = "perfil")
-public class Perfil implements TO {
+public class Perfil implements TO , GrantedAuthority{
 
 	/**
 	 * 
@@ -46,6 +48,11 @@ public class Perfil implements TO {
 		this.perfil = perfil;
 	}
 
+	@Override
+	public String getAuthority() {
+		return perfil;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

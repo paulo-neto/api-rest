@@ -3,6 +3,7 @@
  */
 package com.apirest.models;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,9 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author paulo
@@ -24,7 +27,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "usuario")
-public class Usuario implements TO {
+public class Usuario implements TO, UserDetails {
 
 	/**
 	 * 
@@ -35,17 +38,17 @@ public class Usuario implements TO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull(message = "login é obrigatório")
+	@NotEmpty(message = "login é obrigatório")
 	private String login;
 	
-	@NotNull(message = "senha é obrigatório")
+	@NotEmpty(message = "senha é obrigatório")
 	private String senha;
 	
-	@NotNull(message = "email é obrigatório")
+	@NotEmpty(message = "email é obrigatório")
 	private String email;
 	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "perfil_usuario")
 	private Set<Perfil> perfis;
 	
@@ -104,6 +107,42 @@ public class Usuario implements TO {
 		this.perfis = perfis;
 	}
 
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return perfis;
+	}
+
+	@Override
+	public String getPassword() {
+		return senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return login;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return false;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
