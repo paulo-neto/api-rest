@@ -8,6 +8,9 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.apirest.mesages.KeyMesages;
+import com.apirest.mesages.MesagesProperties;
+
 public class BeanCDILocator {
 
 	private static BeanManager getBeanManager() {
@@ -15,7 +18,7 @@ public class BeanCDILocator {
 			InitialContext initialContext = new InitialContext();
 			return (BeanManager) initialContext.lookup("java:comp/BeanManager");
 		} catch (NamingException ex) {
-			throw new RuntimeException("Bean não encontrado no JNDI");
+			throw new RuntimeException(MesagesProperties.getInstancia().getMesage(KeyMesages.BEAN_CDI_NAO_ENC));
 		}
 	}
 

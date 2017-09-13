@@ -107,37 +107,43 @@ public class Usuario implements TO, UserDetails {
 		this.perfis = perfis;
 	}
 
-
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return perfis;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getPassword() {
 		return senha;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getUsername() {
 		return login;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		return false;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		return false;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return false;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		return false;

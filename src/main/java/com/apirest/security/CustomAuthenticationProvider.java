@@ -10,6 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.apirest.mesages.KeyMesages;
+import com.apirest.mesages.MesagesProperties;
 import com.apirest.models.Usuario;
 import com.apirest.repository.impl.UsuarioRepository;
 import com.apirest.util.AssertUtils;
@@ -30,7 +32,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
         	Collection<? extends GrantedAuthority> authorities = usuEncontrado.getPerfis();
             return new UsernamePasswordAuthenticationToken(name, password, authorities);
         }else {
-        	throw new UsernameNotFoundException("Login e/ou Senha inválidos.");
+			throw new UsernameNotFoundException(MesagesProperties.getInstancia().getMesage(KeyMesages.BAD_CREDENCIALS));
         }
 	}
 

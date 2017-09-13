@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -48,6 +49,7 @@ public class Perfil implements TO , GrantedAuthority{
 		this.perfil = perfil;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getAuthority() {
 		return perfil;
