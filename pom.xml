@@ -13,7 +13,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<deltaspike.data.module.version>1.9.1</deltaspike.data.module.version>
-		<jnosql.version>0.0.7</jnosql.version>
 		<lombok.version>1.18.4</lombok.version>
 		<weld.version>3.0.5.Final</weld.version>
 		<commons.io.version>2.6</commons.io.version>
@@ -66,7 +65,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>jms-artemis</finalName>
+		<finalName>api-rest</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
