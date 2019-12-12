@@ -41,14 +41,14 @@ public class UsuarioResource {
 	@Path("/")
 	public Response create(@Valid Usuario usuario) throws URISyntaxException {
 		usuarioService.save(usuario);
-		return Response.created(new URI("usuarios")).build();
+		return Response.created(new URI("usuarios/".concat(usuario.getId().toString()))).build();
 	}
 
 	@PUT
 	@Path("/{id}")
 	public Response edite(@PathParam("id") Long id,@Valid Usuario usuario) throws URISyntaxException, InvocationTargetException, IllegalAccessException {
 		usuarioService.edit(id,usuario);
-		return Response.created(new URI("usuarios")).build();
+		return Response.created(new URI("usuarios/".concat(usuario.getId().toString()))).build();
 	}
 
 	@DELETE
