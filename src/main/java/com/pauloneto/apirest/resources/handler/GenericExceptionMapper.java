@@ -3,6 +3,7 @@ package com.pauloneto.apirest.resources.handler;
 import com.pauloneto.apirest.resources.handler.dto.ErroMessage;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -16,7 +17,9 @@ public class GenericExceptionMapper implements ExceptionMapper<Exception> {
     public Response toResponse(Exception e) {
         List<ErroMessage> messages = new ArrayList<>();
         messages.add(new ErroMessage(ExceptionUtils.getMessage(e),ExceptionUtils.getStackTrace(e)));
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(messages).build();
+        return Response
+                .status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON)
+                .entity(messages)
+                .build();
     }
 }
