@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
+
+import com.pauloneto.apirest.messaging.producer.EmailProducer;
 import com.pauloneto.apirest.models.Perfil;
 import com.pauloneto.apirest.models.Usuario;
 import com.pauloneto.apirest.repository.PerfilRepository;
@@ -29,14 +31,18 @@ public class UsuarioService {
 
 	@Inject
 	private EntityManager em;
-	
-	@Transactional(value = TxType.REQUIRED)
+
+	@Inject
+	private EmailProducer emailProducer;
+
+	@Transactional(value = TxType.REQUIRED,rollbackOn = {RuntimeException.class, Exception.class})
 	public Usuario save(Usuario usuario) {
 		usuario = usuarioRepository.save(usuario);
+		emailProducer.sendEmail(usuario);
 		return usuario;
 	}
 
-	@Transactional(value = TxType.REQUIRED)
+	@Transactional(value = TxType.REQUIRED,rollbackOn = {RuntimeException.class, Exception.class})
     public void remove(Long id) {
 		Usuario usuBD = usuarioRepository.findBy(id);
 		if(Objects.isNull(usuBD))
@@ -45,7 +51,7 @@ public class UsuarioService {
 	    usuarioRepository.attachAndRemove(usuBD);
     }
 
-    @Transactional(value = TxType.REQUIRED)
+	@Transactional(value = TxType.REQUIRED,rollbackOn = {RuntimeException.class, Exception.class})
     public void edit(Long id, Usuario usuario) throws IllegalAccessException, InvocationTargetException {
 	    Usuario usuBD = usuarioRepository.findBy(id);
 	    if(Objects.isNull(usuBD))
@@ -68,7 +74,7 @@ public class UsuarioService {
 		return usuBD;
     }
 
-	@Transactional(value = TxType.REQUIRED)
+	@Transactional(value = TxType.REQUIRED,rollbackOn = {RuntimeException.class, Exception.class})
 	public Usuario adicionaPerfilAUsuario(Long idPerfil, Long idUsuario) {
 		Usuario usuBD = usuarioRepository.findBy(idUsuario);
 		if(Objects.isNull(usuBD))
@@ -88,7 +94,7 @@ public class UsuarioService {
 		return query.getResultList();
 	}
 
-	@Transactional(value = TxType.REQUIRED)
+	@Transactional(value = TxType.REQUIRED,rollbackOn = {RuntimeException.class, Exception.class})
 	public Usuario removePerfilUsuario(Long idPerfil, Long idUsuario) {
 		Usuario usuBD = usuarioRepository.findBy(idUsuario);
 		if(Objects.isNull(usuBD))

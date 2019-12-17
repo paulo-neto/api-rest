@@ -17,6 +17,8 @@
         <weld.version>3.0.5.Final</weld.version>
         <commons.io.version>2.6</commons.io.version>
         <jackson.databind.version>2.9.8</jackson.databind.version>
+        <activemq.client.and.broker.version>5.15.11</activemq.client.and.broker.version>
+        <commons.email.version>1.5</commons.email.version>
     </properties>
     <dependencyManagement/>
     <dependencies>
@@ -59,9 +61,31 @@
             <version>1.9.3</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>${activemq.client.and.broker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>${activemq.client.and.broker.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>${commons.email.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.ejb3</groupId>
+            <artifactId>jboss-ejb3-ext-api</artifactId>
+            <!-- to get the right version, look in the EAP offline Maven repo -->
+            <version>2.0.0-redhat-2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
