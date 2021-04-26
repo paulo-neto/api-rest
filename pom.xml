@@ -15,7 +15,7 @@
         <deltaspike.data.module.version>1.9.1</deltaspike.data.module.version>
         <lombok.version>1.18.4</lombok.version>
         <weld.version>3.0.5.Final</weld.version>
-        <commons.io.version>2.6</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <jackson.databind.version>2.9.10.1</jackson.databind.version>
         <activemq.client.and.broker.version>5.15.11</activemq.client.and.broker.version>
         <commons.email.version>1.5</commons.email.version>
